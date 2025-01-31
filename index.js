@@ -8,7 +8,7 @@ app.use(express.json());
 
 let produits = [
     {id: 1, nom: "Thé Vert Matcha", prix: 12.99, quantite: 10 },
-    {id: 1, nom: "Café arabica", prix: 12.99, quantite: 20 },
+    {id: 2, nom: "Café arabica", prix: 12.99, quantite: 20 },
 ];
 
 //Routes
@@ -19,24 +19,36 @@ app.get("/produits", (req,res) => {
 })
 
 // POST
-app.post (`/produits/:id`), (req,res) => {
 
-}
+app.post('/produits', (req, res) => {
+  const { id, nom, prix, quantite } = req.body
+
+  const nouveauProduit = {
+      id,
+      nom,
+      prix,
+      quantite
+  }
+
+  produits.push(nouveauProduit)
+    res.status(200).json(produits)
+
+})
 
 // PUT
 app.put('/produits/:id', (req,res) => {
     const id = parseInt(req.params.id)
-    let produits = produits.find(produits => produits.id === id)
-    produits.name =req.body.name,
-        produits.city =req.body.city,
-        produits.type =req.body.type,
+    let produit = produits.find(produits => produits.id === id)
+    produit.nom =req.body.nom,
+        produit.prix =req.body.prix,
+        produit.quantite =req.body.quantite,
         res.status(200).json(produits)})
 
 // DELETE
 app.delete('/produits/:id', (req,res) => {
     const id = parseInt(req.params.id)
-    let produits = produits.find(produits => produits.id === id)
-    produits.splice(produits.indexOf(produits),1)
+    let produit = produits.find(produits => produits.id === id)
+    produits.splice(produits.indexOf(produit),1)
     res.status(200).json(produits)})
 
 
