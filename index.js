@@ -32,8 +32,8 @@ app.post('/produits', (req, res) => {
 
   produits.push(nouveauProduit)
     res.status(200).json(produits)
-
 })
+
 
 // PUT
 app.put('/produits/:id', (req,res) => {
